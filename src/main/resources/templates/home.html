@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Short URL</title>
+</head>
+<body>
+
+<h2>Short URL</h2>
+
+<!-- 폼 시작 -->
+<form th:action="@{/short}" method="post">
+
+  <!-- 입력 필드 -->
+  <label for="originalUrl">URL 입력</label>
+  <input type="text" id="originalUrl" name="originalUrl" required />
+
+  <!-- 제출 버튼 -->
+  <button type="submit">단축</button>
+
+</form>
+<!-- 폼 종료 -->
+
+</body>
+</html>

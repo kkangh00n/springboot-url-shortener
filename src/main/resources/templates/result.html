@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Shortener - Result</title>
+</head>
+<body>
+
+<h2>URL Shortener - Result</h2>
+
+<!-- 결과를 표시할 부분 -->
+<p th:text="'Shortened URL: ' + ${shortenUrl}"></p>
+<p th:text="'Request Count: ' + ${request}"></p>
+
+</body>
+</html>
