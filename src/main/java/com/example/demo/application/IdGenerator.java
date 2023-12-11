@@ -11,7 +11,7 @@ public class IdGenerator {
 
     private final IdRespository idRespository;
 
-    public Id save(){
+    public Id generate(){
         return idRespository.save(new Id());
     }
 
