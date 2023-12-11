@@ -2,7 +2,11 @@ package com.example.demo.presentation;
 
 import com.example.demo.application.UrlService;
 import com.example.demo.dto.ResponseDto;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ShortUrlViewController {
 
     private final UrlService urlService;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/")
     public String home() {
+        logger.info("시나리오 1");
         return "home";
     }
 
@@ -29,21 +35,23 @@ public class ShortUrlViewController {
         ResponseDto responseDto = urlService.shorteningUrl(originalUrl);
 
         redirectAttributes.addFlashAttribute("responseDto", responseDto);
-        return "redirect:/result";
+        logger.info("post 요청 성공");
+        return "redirect:/short/result";
     }
 
-    @GetMapping("/result")
-    public String result(@ModelAttribute(value = "responseDto") ResponseDto responseDto,
+    @GetMapping("/short/result")
+    public String result(@ModelAttribute ResponseDto responseDto,
         Model model) {
         model.addAttribute("shortenUrl", responseDto.getShortenUrl());
         model.addAttribute("request", responseDto.getRequestCount());
+        logger.info("결과 창 조회");
         return "result";
     }
 
     @GetMapping("/{shortenUrl}")
     public String redirection(@PathVariable("shortenUrl") String shortenUrl){
         String originalUrl = urlService.getOriginalUrl(shortenUrl);
-        return "redirection:/" + originalUrl;
+        return "redirect:" + originalUrl;
     }
 
 }
