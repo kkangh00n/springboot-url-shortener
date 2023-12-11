@@ -26,8 +26,8 @@ public class UrlService {
             return Mapper.of(existsUrl);
         }
 
-        String shortenUrl = encoder.encoded(originalUrl);
-        Id id = idGenerator.save();
+        Id id = idGenerator.generate();
+        String shortenUrl = encoder.encoded(id.getId());
 
         UrlInfo saveUrl = urlRepository.save(new UrlInfo(id.getId(), originalUrl, shortenUrl));
         return Mapper.of(saveUrl);
