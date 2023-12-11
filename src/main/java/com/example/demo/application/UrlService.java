@@ -18,10 +18,11 @@ public class UrlService {
     private final Encoder encoder;
     private final IdGenerator idGenerator;
 
-    public ResponseDto shorteningUrl(String originalUrl){
+    public ResponseDto shorteningUrl(String originalUrl) {
         boolean exists = urlRepository.existsByOriginalUrl(originalUrl);
-        if(exists){
-            UrlInfo existsUrl = urlRepository.findUrlInfoByOriginalUrl(originalUrl);
+        if (exists) {
+            UrlInfo existsUrl = urlRepository.findUrlInfoByOriginalUrl(originalUrl)
+                .orElseThrow();
             existsUrl.addRequest();
             return Mapper.of(existsUrl);
         }
@@ -33,11 +34,11 @@ public class UrlService {
         return Mapper.of(saveUrl);
     }
 
-    public String getOriginalUrl(String shortenUrl){
-        UrlInfo urlInfo = urlRepository.findUrlInfoByShortenUrl(shortenUrl);
+    public String getOriginalUrl(String shortenUrl) {
+        UrlInfo urlInfo = urlRepository.findUrlInfoByShortenUrl(shortenUrl)
+            .orElseThrow();
         return urlInfo.getOriginalUrl();
     }
-
 
 
 }
