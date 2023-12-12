@@ -11,3 +11,5 @@ spring:
       hibernate:
         format_sql: true
     generate-ddl: true
+
+host: localhost:8080/
